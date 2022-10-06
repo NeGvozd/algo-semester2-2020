@@ -41,9 +41,92 @@
 ****************************************************************************/
 
 #include <iostream>
+#include <vector>
+#include <algorithm>
+
+enum class Color { White, Gray, Black };
+
+
+bool isCycle(const std::vector<std::vector<int>>& graph, 
+              std::vector<Color>& colors,
+              int v) 
+{
+    colors[v] = Color::Gray;
+    for (int u : graph[v]) 
+    {
+        if (colors[u] == Color::Gray) {
+            return true;
+        }
+        if (colors[u] == Color::White && isCycle(graph, colors, u)) {
+            return true;
+        }
+    }
+    colors[v] = Color::Black;
+    return false;
+}
+
+
+void topoSort(const std::vector<std::vector<int>>& graph, 
+              std::vector<int>& order,
+              std::vector<Color>& colors,
+              int v) 
+{
+    colors[v] = Color::Gray;
+    for (int u : graph[v]) 
+    {
+        if (colors[u] == Color::White) {
+            topoSort(graph, order, colors, u);
+        }
+    }
+    order.push_back(v);
+}
+
 
 int main()
 {
+    int n, m;
+    std::cin >> n >> m;
+    std::vector<std::vector<int>> graph(n);
+
+    for (int i = 0; i < m; ++i) 
+    {
+        int a, b;
+        std::cin >> a >> b;
+        graph[a].push_back(b);
+    }
+    
+    bool isCyclic = false;
+    std::vector<Color> colors(n, Color::White);
+
+    for (int i = 0; i < n; ++i) 
+    {
+        if (colors[i] == Color::White) {
+            isCyclic = isCycle(graph, colors, i);
+        }
+        if (isCyclic) {
+            break;
+        }
+    }
+
+    if (isCyclic) {
+        std::cout << "NO";
+    }
+    else {
+        std::cout << "YES" << std::endl;
+        std::vector<int> order;
+        colors.assign(n, Color::White);
+        for (int i = 0; i < n; ++i) 
+        {
+            if (colors[i] == Color::White) {
+                topoSort(graph, order, colors, i);
+            }
+        }
+        std::reverse(order.begin(), order.end());
+        for (int i = 0; i < n; ++i) {
+            std::cout << order[i] << " ";
+        }
+    }
+
     return 0;
 }
 

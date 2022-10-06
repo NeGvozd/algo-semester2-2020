@@ -34,9 +34,29 @@
 ****************************************************************************/
 
 #include <iostream>
+#include <vector>
+#include <algorithm>
+
+enum class Color { White, Gray, Black };
+
+
 
 int main()
 {
+    int n, m;
+    std::cin >> n >> m;
+    std::vector<std::vector<int>> graph(n);
+
+    for (int i = 0; i < m; ++i) 
+    {
+        int a, b;
+        std::cin >> a >> b;
+        graph[a].push_back(b);
+    }
+
+    std::vector<Color> colors(n, Color::White);
+    
+    
     return 0;
 }
 
