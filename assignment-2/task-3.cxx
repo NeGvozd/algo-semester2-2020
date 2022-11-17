@@ -70,7 +70,7 @@ int main()
     std::vector<std::vector<Vertex>> graph(n);
     int variant = 0;
 
-    for(int i = 0; i < m; i++)
+    for (int i = 0; i < m; i++)
     {
         int from, to;
         double distance;
