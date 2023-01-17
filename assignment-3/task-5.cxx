@@ -43,40 +43,6 @@ bool FindPath(std::vector<std::unordered_map<int, int>>& graph, std::vector<int>
         edge_num2 = parent[edge_num2];
     }
     return !path.empty();
-    // std::vector<int> parent(graph.size(), -1);
-    // std::vector<bool> visited(graph.size(), false);
-
-    // std::queue<int> queue;
-    // queue.push(edge_num1);
-    // visited[edge_num1] = true;
-
-    // while (!queue.empty())
-    // {
-    //     int current = queue.front();
-    //     queue.pop();
-
-    //     for (auto iterator = graph[current].begin(); iterator != graph[current].end(); ++iterator)
-    //     {
-    //         if (!visited[iterator->first] && iterator->second > 0)
-    //         {
-    //             queue.push(iterator->first);
-    //             visited[iterator->first] = true;
-    //             parent[iterator->first] = current;
-    //         }
-    //     }
-    // }
-
-    // if (!visited[edge_num2]) return false;
-
-    // int current = edge_num2;
-    // while (current != edge_num1)
-    // {
-    //     path.push_back(current);
-    //     current = parent[current];
-    // }
-    // path.push_back(edge_num1);
-
-    // return true;
 }
 
 
